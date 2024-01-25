@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Quiz App</title>
+</head>
+<body class="bg-gray-200 h-screen flex items-center justify-center">
+
+    <div id="app" class="bg-white p-8 rounded-lg shadow-md w-full md:w-96">
+        <!-- Ảnh và Nơi nhập đáp án -->
+        <div v-if="currentQuestion <= 12" class="text-center">
+            <img :src="'img/' + currentQuestion + '.jpg'" alt="Question Image" class="w-full mb-4 md:mb-0 md:w-48 mx-auto">
+            <input v-model="userAnswers[currentQuestion - 1]" type="text" placeholder="Nhập đáp án" class="w-full p-2 border border-gray-300 rounded-md mb-4">
+            <button @click="nextQuestion" class="bg-blue-500 text-white py-2 px-4 rounded-md">Next</button>
+        </div>
+
+        <!-- Kết quả -->
+        <div v-else>
+            <h2 class="text-xl font-bold mb-4">Kết quả</h2>
+            <div v-for="(userAnswer, index) in userAnswers" :key="index" class="mb-2 flex flex-col items-center">
+                <div class="mb-2">
+                    <img :src="'img/' + (index + 1) + '.jpg'" alt="Question Image" class="w-full md:w-48 mx-auto">
+                </div>
+                <div class="flex items-center">
+                    <div class="mr-4">Câu {{ index + 1 }}:</div>
+                    <div class="flex-shrink-0 w-10 h-10">
+                        <img :src="'img/' + (index + 1) + '.1.jpg'" alt="Answer Image" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <div class="ml-4">Đáp án của bạn: {{ userAnswer }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
